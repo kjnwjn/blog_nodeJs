@@ -1,0 +1,89 @@
+<div class="mt-4 container">
+    <h1 class="text-center">My Blog</h1>
+    <div class="trash">
+      <a href="/me/stored/blog">Go back to blog list</a>
+    </div>
+    <table class="table table-bordered mt-4">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Author</th>
+            <th scope="col" >Created At</th>
+            <th scope="col" colspan="2">Handle</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each blogs}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.title}}</td>
+                <td>{{this.author}}</td>
+                <td>{{this.createdAt}}</td>
+                <td><a href="" class="btn-restore" data-id="{{this._id}}">Restore</a></td>
+                <td><button type="button" class="btn btn-danger" data-id="{{this._id}}" data-toggle="modal" data-target="#exampleModal">Delete</button></td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="5" class="text-center">Empty trash. <a href="/me/stored/blog">Go back to blog list</a></td>
+
+            </tr>
+                
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- delete btn modal --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Confirm alert</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       Are you sure you want to delete this blog?
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="btn-delete-one" class="btn btn-danger">Delete</button>
+        <button type="button"  class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form name="deleteOneForm" method="POST"></form>
+<form name="restoreForm" method="POST"></form>
+
+
+<script>
+
+    document.addEventListener('DOMContentLoaded', function(e) {
+    var btnDeleteOne = document.getElementById('btn-delete-one');
+    var deleteOneForm = document.forms["deleteOneForm"]
+    var restoreForm = document.forms["restoreForm"]
+    var btnRestore = $('.btn-restore')
+    var idBlog ;
+
+
+      $('#exampleModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget)
+      idBlog = button.data('id') 
+    })
+
+    btnDeleteOne.onclick = function (e){
+      deleteOneForm.action = '/blog/' + idBlog + '/destroy?_method=DELETE'
+      deleteOneForm.submit()
+    }
+
+    btnRestore.click(function(e){
+      e.preventDefault()
+      const blogTrashId = $(this).data('id')
+      restoreForm.action = '/blog/' + blogTrashId + '/restore?_method=PATCH'
+      restoreForm.submit()
+    })
+  })
+</script>

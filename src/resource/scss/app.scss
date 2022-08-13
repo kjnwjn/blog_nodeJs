@@ -1,0 +1,19 @@
+@import 'variable';
+
+.test {
+    font-size: 15px;
+}
+header {
+    color: $red-color;
+}
+.img__person {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    margin-right: 4px;
+}
+footer{
+    margin-top: auto;
+    width: 100%;
+}
+

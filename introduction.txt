@@ -1,0 +1,25 @@
+Node js step
+1. install node 
+2. node init
+2. install express
+4. start using : node index.js
+5. install nodemon
+6. thêm start vào script trong package.json để khởi chạy app theo ý muốn
+7. install morgan 
+8. template engine : handlebars
+9. Set up file theo cấu trúc source của template engine.
+10. tạo thư mục public/img và link vào app bằng câu lệnh : app.use(express.static(path.join(__dirname, 'public')))
+ Để xử lí file tĩnh
+11. Cài sass tạo ra file app.scss sau đó link với file app.css bên thư mục public mới tạo ở trên
+    sử dụng câu lệnh : node-sass -w src/resource/scss/app.scss src/public/css/app.css 
+    link file css vào file main.hbs
+12. Tích hợp bootstrap 
+13. Tạo ra routes trong thư mục src để lưu trữ những tuyến đường
+
+
+Các cách lấy dữ liệu từ url
+    c1: query parameters(/?key=value&key2=value2) : req.query.name với name là biến được truyền trên url
+    vd: https://fullstack.edu.vn/learning/nodejs?id=123 thì req.query.id = 123
+    c2: truyền theo phương thức post : req.body.slug với slug là biến được truyền trên url
+    vd: https://fullstack.edu.vn/learning/nodejs thì req.body.slug = nodejs
+    *CHú ý những kí tự đặc biệt
